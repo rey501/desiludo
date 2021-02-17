@@ -39,7 +39,7 @@ class AdminController extends Controller
         $commissiondata = Commission::all()->sum("commission");
 
         $deativatedata = User_Data::all()->where("isActive","false")->count();
-        
+        $ativatedata = User_Data::all()->where('subAdminId',Session::get('subadminid'))->where("isActive","true")->count();
         $offlineuserdata=$userdata-$loginuserdata;
 
         $orderdata = Orders::where('status','success')->sum('amount');
@@ -54,6 +54,7 @@ class AdminController extends Controller
                                 'loginuserdata'=>$loginuserdata,
                                 'offlineuserdata'=>$offlineuserdata,
                                 'deativatedata'=>$deativatedata,
+                                'ativatedata'=>$ativatedata,
                                 'subadmindata'=>$subadmindata,
                                 'walletdata'=>$walletdata,
                                 'orderdata'=>$orderdata,
